@@ -15,23 +15,28 @@ app.use(body_parse.urlencoded({
     extended: true
 }));
 app.get('/', (req, res) => {
-   fetch('https://api.github.com/users/example-user-account')
-   .then(res=>res.json())
-   .then(json=>res.render('main',{json:json}))
+    fetch('https://api.github.com/users/example-user-account')
+        .then(res => res.json())
+        .then(json => res.render('main', {
+            json: json
+        }))
 })
 
 app.post('/', (req, res) => {
     fetch('https://api.github.com/users/' + req.body.search)
-    .then(res=>res.json())
-    .then(json=>{
-        //   console.log(json)
-        if(!json.message){
-            return res.render('main',{json:json})
-        }
-        else{
-            return res.render('error',{json:json})
-        }
-    })
+        .then(res => res.json())
+        .then(json => {
+            //   console.log(json)
+            if (!json.message) {
+                return res.render('main', {
+                    json: json
+                })
+            } else {
+                return res.render('error', {
+                    json: json
+                })
+            }
+        })
 })
 
 
